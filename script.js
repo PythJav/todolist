@@ -1,12 +1,13 @@
 let project = document.querySelector('.project');
 let projectList= [];
+let sortedProject=[];
 
 
 
 function toDo (title,description,dueDate,priority) {
   this.title= title;
   this.description=description;
-  this.dueDate=dueDate;
+  this.dueDate=new Date(dueDate);
   this.priority=priority;
 };
 
@@ -32,21 +33,43 @@ function createDom(eachToDo,index){
     toTitle.textContent= eachToDo.title;
 
 
+    const toDesc= document.createElement('div');
+    toDesc.textContent= eachToDo.description;
+
+
+    const toDate= document.createElement('div');
+    toDate.textContent= eachToDo.dueDate;
+
+    const toPrio= document.createElement('div');
+    toPrio.textContent= eachToDo.priority;
+
+
+
     const toDel=document.createElement('button');
     toDel.textContent = "delete todo";
     toDel.setAttribute("onclick",`delToDoEach(${index})`)
 
     const toCheck=document.createElement('input');
     toCheck.setAttribute("type","checkbox");
-    toCheck.addEventListener("click",console.log("test"));
-    
-  if(toCheck.checked== true){
-    console.log("Hello");
 
-  }
+    
+
+  toCheck.addEventListener('change', function() {
+    if (this.checked) {
+      newDo.style.textDecoration = "line-through";
+    } else {
+      newDo.style.textDecoration = "";
+    }
+  });
   
 
     newDo.append(toTitle);
+    newDo.append(toDesc);
+    newDo.append(toDate);
+    newDo.append(toPrio);
+
+
+
     newDo.append(toDel);
     newDo.append(toCheck);
 
@@ -55,13 +78,23 @@ function createDom(eachToDo,index){
 
   }
 
+ const sortProject=()=>{ 
+projectList.sort((a, b) => {return  a.dueDate-b.dueDate} );
+// console.log(projectList);
+
+}
+
 
 const renderList=()=> {
   project.innerHTML="";
+  sortProject();
+
+
+
     projectList.forEach(function renderDo (value,index){
       
       createDom(value,index);
-      console.log(projectList[index]);
+      // console.log(projectList[index]);
     });
   
   
@@ -71,7 +104,7 @@ const renderList=()=> {
 
 
 const showForm = () =>{
-console.log("hello");
+// console.log("hello");
 document.querySelector("#todoForm").style.display="";
 
 
