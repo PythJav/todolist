@@ -22,14 +22,12 @@ const createDo =() =>{
 
 
 
-const createDom = (eachToDo,index) =>{
+function createDom(eachToDo,index){
 
-    // let tempList = projectList[index];
+    
+    const newDo= document.createElement('div');
 
-    project.textContent="";
-    const newToDoEach= document.createElement('div');
-
-    const  toTitle= document.createElement('div');
+    const   toTitle= document.createElement('div');
     toTitle.id =index;
     toTitle.textContent= eachToDo.title;
 
@@ -38,17 +36,32 @@ const createDom = (eachToDo,index) =>{
     toDel.textContent = "delete todo";
     toDel.setAttribute("onclick",`delToDoEach(${index})`)
 
-    newToDoEach.append(toTitle);
-    newToDoEach.append(toDel);
-    project.append(newToDoEach);
+    const toCheck=document.createElement('input');
+    toCheck.setAttribute("type","checkbox");
+    toCheck.addEventListener("click",console.log("test"));
+    
+  if(toCheck.checked== true){
+    console.log("Hello");
+
+  }
+  
+
+    newDo.append(toTitle);
+    newDo.append(toDel);
+    newDo.append(toCheck);
+
+
+    project.append(newDo);
 
   }
 
 
 const renderList=()=> {
-    projectList.forEach(function eachtoDotoDo (value,index){
+  project.innerHTML="";
+    projectList.forEach(function renderDo (value,index){
+      
       createDom(value,index);
-      console.log(index);
+      console.log(projectList[index]);
     });
   
   
