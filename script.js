@@ -1,8 +1,16 @@
 let project = document.querySelector('.project');
 let projectList= [];
-let sortedProject=[];
 
 
+if (!localStorage.getItem("toDoList")) {
+  
+  
+  console.log("No Local Storage");
+ 
+} else {
+  let getIt= localStorage.getItem("toDoList");
+  projectList = JSON.parse(getIt);
+}
 
 function toDo (title,description,dueDate,priority) {
   this.title= title;
@@ -84,10 +92,20 @@ projectList.sort((a, b) => {return  a.dueDate-b.dueDate} );
 
 }
 
+const doStorage=()=>{
+  let stringProject= JSON.stringify(projectList);
+  localStorage.setItem("toDoList", stringProject);
+  console.log(stringProject);
+
+
+}
+
 
 const renderList=()=> {
   project.innerHTML="";
+  doStorage();
   sortProject();
+ 
 
 
 
