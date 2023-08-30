@@ -1,0 +1,14 @@
+#newBook{
+    width: 300px;
+}
+
+body{
+    display: grid;
+    gap:20px;
+}
+
+
+.projectContent{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}

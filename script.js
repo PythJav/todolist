@@ -1,5 +1,16 @@
 let project = document.querySelector('.project');
+
+
 let projectList= [];
+
+
+
+let projectOptionDom =document.querySelector('.allProject');
+
+let projectOption=[];
+
+
+
 
 
 if (!localStorage.getItem("toDoList")) {
@@ -12,16 +23,54 @@ if (!localStorage.getItem("toDoList")) {
   projectList = JSON.parse(getIt);
 }
 
-function toDo (title,description,dueDate,priority) {
-  this.title= title;
-  this.description=description;
-  this.dueDate=new Date(dueDate);
-  this.priority=priority;
+toDo= (title,description,dueDate,priority) => {
+  
+  dueDate=new Date(dueDate);
+  
+
+  return {title,description,dueDate,priority}
 };
+const newProject =(title)=>{
+  return {title};
+}
+
+const createProject =()=>{
+  let newAddProject = newProject(projectName.title.value);
+
+  console.log(newAddProject);
+  projectOption.push(newAddProject);
+  renderProject();
+
+}
+
+const renderProject=()=> {
+  projectOptionDom.innerHTML="";
+  // doStorage();
+  // sortProject();
+ 
+
+
+
+  projectOption.forEach(function renderOptions (value,index){
+      
+    createProjectList(value,index);
+      // console.log(projectList[index]);
+    });
+  
+  
+  
+  }
+  function createProjectList(eachProject,index){
+    const newList = document.createElement('div');
+    newList.id=index;
+    newList.textContent=eachProject.title;
+    projectOptionDom.append(newList);
+  
+  }
 
 
 const createDo =() =>{
-    let newTodo =new toDo(todoForm.title.value,todoForm.desc.value,todoForm.date.value,todoForm.priority.value);
+    let newTodo =toDo(todoForm.title.value,todoForm.desc.value,todoForm.date.value,todoForm.priority.value);
     
     projectList.push(newTodo);
     
@@ -137,6 +186,17 @@ const delToDoEach =(index)=>{
   console.log(projectList)
 
 }
+
+document.querySelector("#projectName").addEventListener("submit",function(event){
+  event.preventDefault();
+  createProject();
+  console.log(projectOption)
+  // document.getElementById("bookForm").style.display="none";
+
+
+  
+})
+
 
 document.querySelector("#todoForm").addEventListener("submit",function(event){
     event.preventDefault();

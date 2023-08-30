@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>To Do Project</title>
 </head>
 <body>
     <button id="newBook" onclick="showForm()">New Todo</button>
@@ -28,9 +29,30 @@
 
 </form>
 
+<div class="projectContent">
 
-    <div class="project">
+    <div class="projectTabs">
+        
+        <form name="projectName" id="projectName">
+            <label for="title">Title</label>
+<input type="text" id="title" name="title" value="New">
 
-    </div>    
+<input type="submit" value="New Project"  value="1">
+        </form>
+        
+
+    <div class="allProject"></div>    
+    
+            
+        </div>
+        
+        
+            <div class="project">
+        
+            </div>    
+
+</div>
+
+
 </body>
 </html>
