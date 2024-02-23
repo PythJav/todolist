@@ -70,7 +70,7 @@ const renderProject=()=> {
     newList.textContent=eachProject.title;
     newList.setAttribute("onclick",`changePro(${index})`)
     projectOptionDom.append(newList);
-    renderList();
+    
   
   }
 
@@ -168,10 +168,11 @@ const renderList=()=> {
  
 
 
-    let projectIdList=projectList.filter(projects=>
-     projects.projectId === currentProjectId);
+    // let projectIdList=projectList.filter(projects=>
+    //  projects.projectId === currentProjectId);
 
-    projectIdList.forEach(function renderDo (value,index){
+    projectList.filter(projects=>
+      projects.projectId === currentProjectId).forEach(function renderDo (value,index){
       
       createDom(value,index);
       // console.log(projectList[index]);
@@ -203,6 +204,7 @@ const delToDoEach =(index)=>{
 const changePro =(index)=>{
 
   currentProjectId=index;
+  renderList();
   console.log(currentProjectId);
 
 }
