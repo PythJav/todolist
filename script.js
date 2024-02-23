@@ -3,7 +3,7 @@ let project = document.querySelector('.project');
 
 let projectList= [];
 
-
+let currentProjectId =0;
 
 let projectOptionDom =document.querySelector('.allProject');
 
@@ -23,12 +23,12 @@ if (!localStorage.getItem("toDoList")) {
   projectList = JSON.parse(getIt);
 }
 
-toDo= (title,description,dueDate,priority) => {
+toDo= (title,description,dueDate,priority,projectId) => {
   
   dueDate=new Date(dueDate);
   
 
-  return {title,description,dueDate,priority}
+  return {title,description,dueDate,priority,projectId}
 };
 const newProject =(title)=>{
   return {title};
@@ -36,15 +36,19 @@ const newProject =(title)=>{
 
 const createProject =()=>{
   let newAddProject = newProject(projectName.title.value);
-
-  console.log(newAddProject);
   projectOption.push(newAddProject);
   renderProject();
 
 }
+// const navProject=()=>{
+//   .forEach(element => {
+    
+//   });
 
+// }
 const renderProject=()=> {
   projectOptionDom.innerHTML="";
+
   // doStorage();
   // sortProject();
  
@@ -54,23 +58,25 @@ const renderProject=()=> {
   projectOption.forEach(function renderOptions (value,index){
       
     createProjectList(value,index);
-      // console.log(projectList[index]);
+
     });
   
   
   
   }
   function createProjectList(eachProject,index){
-    const newList = document.createElement('div');
+    const newList = document.createElement('button');
     newList.id=index;
     newList.textContent=eachProject.title;
+    newList.setAttribute("onclick",`changePro(${index})`)
     projectOptionDom.append(newList);
+    renderList();
   
   }
 
 
 const createDo =() =>{
-    let newTodo =toDo(todoForm.title.value,todoForm.desc.value,todoForm.date.value,todoForm.priority.value);
+    let newTodo =toDo(todoForm.title.value,todoForm.desc.value,todoForm.date.value,todoForm.priority.value,currentProjectId);
     
     projectList.push(newTodo);
     
@@ -100,6 +106,9 @@ function createDom(eachToDo,index){
     const toPrio= document.createElement('div');
     toPrio.textContent= eachToDo.priority;
 
+    // const toProId=document.createElement('div');
+    // toProId.textContent=eachToDo.projectId;
+  
 
 
     const toDel=document.createElement('button');
@@ -109,6 +118,8 @@ function createDom(eachToDo,index){
     const toCheck=document.createElement('input');
     toCheck.setAttribute("type","checkbox");
 
+
+   
     
 
   toCheck.addEventListener('change', function() {
@@ -157,8 +168,10 @@ const renderList=()=> {
  
 
 
+    let projectIdList=projectList.filter(projects=>
+     projects.projectId === currentProjectId);
 
-    projectList.forEach(function renderDo (value,index){
+    projectIdList.forEach(function renderDo (value,index){
       
       createDom(value,index);
       // console.log(projectList[index]);
@@ -184,6 +197,13 @@ const delToDoEach =(index)=>{
   projectList.splice(index,1);
   renderList();
   console.log(projectList)
+
+}
+
+const changePro =(index)=>{
+
+  currentProjectId=index;
+  console.log(currentProjectId);
 
 }
 
